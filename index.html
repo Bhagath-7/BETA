@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BETA Algorithm Simulator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        input, button {
+            margin: 10px;
+            padding: 8px;
+            font-size: 16px;
+        }
+        #output {
+            text-align: left;
+            margin-top: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            background: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            line-height: 1.6;
+            color: #003366; /* Dark Blue Text */
+        }
+        h1, h2, h3 {
+            color: #990000; /* Dark Red Text */
+        }
+        p, ul, ol {
+            color: #333333; /* Dark Gray Text */
+        }
+        .license {
+            font-size: 12px;
+            text-align: center;
+            color: blue;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e8f0fe;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>BETA Algorithm Simulator</h1>
+    <h2>Created by Bhagath</h2>
+    
+    <h3>Introduction</h3>
+    <p>The <strong>BETA (Bhagath’s Exponential Triad Algorithm)</strong> is an iterative transformation algorithm that manipulates <strong>natural numbers</strong> using a structured approach involving exponential operations and division.</p>
+    
+    <h3>Mathematical Definition</h3>
+    <p>For any <strong>natural number</strong> <strong>x</strong> and exponent <strong>n</strong> (where <strong>n</strong> can be 0):</p>
+    <ul>
+        <li>If <strong>x</strong> is <strong>odd</strong>: Apply <code>3 * x + 3<sup>n</sup></code>.</li>
+        <li>If <strong>x</strong> is <strong>even</strong>: Apply <code>x / 2</code>.</li>
+        <li>Repeat until <strong>x</strong> reaches <code>3<sup>n</sup></code>.</li>
+    </ul>
+    
+    <h3>Potential Applications</h3>
+    <ul>
+        <li><strong>Quantum Computing:</strong> The structured transformations can be adapted for quantum number operations and optimization.</li>
+        <li><strong>Cryptography:</strong> Number sequence transformations can inspire new encryption models.</li>
+        <li><strong>Mathematical Research:</strong> Studying iterative natural number transformations to explore number theory patterns.</li>
+    </ul>
+    
+    <h3>Try It Yourself</h3>
+    <p>Enter a starting <strong>natural number</strong> (<strong>x ≥ 1</strong>) and an exponent (<strong>n ≥ 0</strong>) to execute the BETA algorithm.</p>
+    <label>Enter x: </label>
+    <input type="number" id="xValue" placeholder="Enter x" min="1">
+    <label>Enter n: </label>
+    <input type="number" id="nValue" placeholder="Enter n" min="0">
+    <button onclick="runBeta()">Run BETA Algorithm</button>
+    <div id="output"></div>
+
+    <div class="license">
+        <p><strong>MIT License</strong></p>
+        <p>Copyright (c) 2025 Bhagath</p>
+        <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+        <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+        <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.</p>
+    </div>
+
+    <script>
+        function runBeta() {
+            let x = parseInt(document.getElementById("xValue").value);
+            let n = parseInt(document.getElementById("nValue").value);
+            let target = Math.pow(3, n);
+            let steps = [];
+            let stepCount = 0;
+
+            if (x < 1 || n < 0) {
+                document.getElementById("output").innerHTML = "<h3 style='color:red;'>Error: x must be a natural number (x ≥ 1) and n must be ≥ 0.</h3>";
+                return;
+            }
+
+            steps.push(`<strong>Starting with x = ${x}, n = ${n}, target = 3<sup>${n}</sup> = ${target}</strong><br><br>`);
+
+            do {
+                if (x % 2 === 0) {
+                    x /= 2;  // Halve if even
+                    steps.push(`Step ${++stepCount}: x is even → x / 2 = ${x}<br><br>`);
+                } else {
+                    let newX = (3 * x) + Math.pow(3, n);
+                    steps.push(`Step ${++stepCount}: x is odd → 3 * ${x} + 3<sup>${n}</sup> = ${newX}<br><br>`);
+                    x = newX;
+                }
+            } while (x !== target);
+
+            steps.push(`<strong>Reached target value: x = ${x}</strong>`);
+            document.getElementById("output").innerHTML = "<h3>Results:</h3>" + steps.join(" ");
+        }
+    </script>
+</body>
+</html>
+
